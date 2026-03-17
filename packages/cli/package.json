@@ -1,0 +1,22 @@
+{
+  "name": "@seem/cli",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "seem": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --dts --format esm --clean",
+    "hello": "tsx src/index.ts hello",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@seem/core": "workspace:*",
+    "commander": "14.0.3"
+  }
+}
