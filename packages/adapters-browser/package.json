@@ -19,6 +19,7 @@
     "typecheck": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@seem/core": "workspace:*"
+    "@seem/core": "workspace:*",
+    "playwright": "1.58.2"
   }
 }

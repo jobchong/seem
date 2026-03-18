@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Seem Phase 3 Browser Fixture</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family:
+          "Trebuchet MS",
+          "Segoe UI",
+          sans-serif;
+        background:
+          radial-gradient(circle at top left, #f3f0ff 0%, transparent 45%),
+          linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+        color: #0f172a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 32px;
+      }
+
+      .shell {
+        margin: 0 auto;
+        max-width: 1100px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+        gap: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        padding: 28px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        box-shadow: 0 30px 60px rgba(15, 23, 42, 0.12);
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #475569;
+      }
+
+      h1 {
+        margin: 0 0 14px;
+        font-size: clamp(32px, 5vw, 56px);
+        line-height: 0.96;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .actions {
+        margin-top: 24px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        border: 0;
+        border-radius: 999px;
+        padding: 14px 20px;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .primary {
+        background: #2563eb;
+        color: #eff6ff;
+      }
+
+      .secondary {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+
+      .status {
+        margin-top: 20px;
+        font-weight: 700;
+        color: #1d4ed8;
+      }
+
+      .stats {
+        display: grid;
+        gap: 12px;
+      }
+
+      .stat-card {
+        padding: 16px;
+        border-radius: 18px;
+        background: rgba(248, 250, 252, 0.96);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: rgba(15, 23, 42, 0.36);
+      }
+
+      .modal-backdrop[hidden] {
+        display: none;
+      }
+
+      .modal {
+        width: min(100%, 560px);
+        padding: 24px;
+        border-radius: 28px;
+        background: #ffffff;
+        box-shadow: 0 32px 80px rgba(15, 23, 42, 0.28);
+      }
+
+      .modal header {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: start;
+      }
+
+      .modal h2 {
+        margin: 0;
+        font-size: 28px;
+      }
+
+      .modal p {
+        margin-top: 10px;
+      }
+
+      .advanced-panel {
+        margin-top: 20px;
+        padding: 18px;
+        border-radius: 20px;
+        background: #eff6ff;
+        color: #0f172a;
+      }
+
+      .advanced-panel[hidden] {
+        display: none;
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 18px;
+        }
+
+        .shell {
+          grid-template-columns: 1fr;
+        }
+
+        .panel {
+          padding: 22px;
+          border-radius: 22px;
+        }
+
+        .modal {
+          width: 100%;
+          padding: 20px;
+          border-radius: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell" data-seem-region="settings_page">
+      <section class="panel">
+        <p class="eyebrow">Visual Fixture</p>
+        <h1>Settings Modal Demo</h1>
+        <p>
+          This page is intentionally small but stateful so the browser adapter
+          can open a route, click through a short journey, and inspect geometry.
+        </p>
+        <div class="actions">
+          <button
+            id="open-settings"
+            class="primary"
+            type="button"
+            data-testid="open-settings"
+          >
+            Open settings
+          </button>
+          <button id="learn-more" class="secondary" type="button">
+            Learn more
+          </button>
+        </div>
+        <div
+          id="viewport-status"
+          class="status"
+          data-seem-region="viewport_status"
+        ></div>
+      </section>
+
+      <aside class="panel stats">
+        <section class="stat-card">
+          <strong>Viewport-aware copy</strong>
+          <p>Resize the page and the status line will update immediately.</p>
+        </section>
+        <section class="stat-card">
+          <strong>Modal state</strong>
+          <p>The journey clicks expose a second panel inside the modal.</p>
+        </section>
+      </aside>
+    </main>
+
+    <div id="modal-backdrop" class="modal-backdrop" hidden>
+      <section
+        id="settings-modal"
+        class="modal"
+        role="dialog"
+        aria-label="Settings modal"
+        data-seem-region="settings_modal"
+      >
+        <header>
+          <div>
+            <p class="eyebrow">Quick Edit</p>
+            <h2>Settings modal</h2>
+          </div>
+          <button id="close-settings" class="secondary" type="button">
+            Close
+          </button>
+        </header>
+
+        <p>
+          This modal is used by the Phase 3 browser fixture. It should be easy
+          to find by role and visible text.
+        </p>
+
+        <div class="actions">
+          <button
+            id="advanced-options"
+            class="primary"
+            type="button"
+            data-testid="advanced-options"
+          >
+            Advanced options
+          </button>
+        </div>
+
+        <section
+          id="advanced-panel"
+          class="advanced-panel"
+          data-seem-region="advanced_panel"
+          hidden
+        >
+          <strong>Advanced panel</strong>
+          <p>Extra controls are now visible after the second journey step.</p>
+        </section>
+      </section>
+    </div>
+
+    <script>
+      const openButton = document.getElementById('open-settings');
+      const closeButton = document.getElementById('close-settings');
+      const advancedButton = document.getElementById('advanced-options');
+      const advancedPanel = document.getElementById('advanced-panel');
+      const backdrop = document.getElementById('modal-backdrop');
+      const viewportStatus = document.getElementById('viewport-status');
+
+      function renderViewportStatus() {
+        viewportStatus.textContent =
+          window.innerWidth <= 640 ? 'mobile viewport active' : 'desktop viewport active';
+      }
+
+      openButton.addEventListener('click', () => {
+        backdrop.hidden = false;
+      });
+
+      closeButton.addEventListener('click', () => {
+        backdrop.hidden = true;
+        advancedPanel.hidden = true;
+      });
+
+      advancedButton.addEventListener('click', () => {
+        advancedPanel.hidden = false;
+      });
+
+      window.addEventListener('resize', renderViewportStatus);
+      renderViewportStatus();
+    </script>
+  </body>
+</html>
